@@ -1,0 +1,22 @@
+.oculto {
+  display: none;
+}
+
+#error-cep {
+  color: red;
+}
+
+#cadastroEndereco {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+#cadastroEndereco>input {
+  width: 40rem;
+}

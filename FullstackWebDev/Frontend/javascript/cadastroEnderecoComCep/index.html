@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Cadastro de Endereço</title>
+</head>
+
+<body>
+  <h1>Cadastro de Endereço</h1>
+  <form id="cadastroEndereco" name="cadastroEndereco" onchange="autoCompleteForm()">
+    <label for="cep">CEP: </label><br>
+    <input type="text" name="cep" placeholder="CEP"><br>
+    <p id="error-cep" class="oculto">
+      O CEP informado é inválido
+    </p>
+
+    <label for="rua">Rua: </label><br>
+    <input type="text" name="rua" placeholder="Rua"><br>
+
+    <label for="numero">Número: </label><br>
+    <input type="text" name="numero" placeholder="Número"><br>
+
+    <label for="bairro">Bairro: </label><br>
+    <input type="text" name="bairro" placeholder="Bairro"><br>
+
+    <label for="estado">Estado: </label><br>
+    <input type="text" name="estado" placeholder="Estado"><br>
+
+    <label for="cidade">Cidade: </label><br>
+    <input type="text" name="cidade" placeholder="Cidade"><br>
+
+    <input type="submit" value="Cadastrar">
+  </form>
+
+  <script src="./js/script.js"></script>
+
+</body>
+
+</html>
