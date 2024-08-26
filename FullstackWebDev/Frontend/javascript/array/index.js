@@ -50,7 +50,7 @@ function uniq(list) {
     }
   }
 
-  return sortNum(uniq);
+  return uniq;
 }
 
 function sortNum(list) {
@@ -61,7 +61,7 @@ function zip(...lists) {
   let resultado = [];
 
   for (let i = 0; i < lists[0].length; i++) {
-    tmp = [];
+    let tmp = [];
     for (let x = 0; x < lists.length; x++) {
       tmp.push(lists[x][i]);
     }
