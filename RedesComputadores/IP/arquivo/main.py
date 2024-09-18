@@ -1,6 +1,10 @@
 import csv
 
 ARQUIVO = "./convocacao_mesarios_2024_BRASIL.csv"
+INDEX_COD_ESCOLARIDADE = 14
+INDEX_ESCOLARIDADE = 15
+INDEX_MUNICIPIO = 6
+INDEX_SG_UF = 4
 
 
 def tipos_grau_escolaridade(registros: list[list[str]]) -> set[str]:
@@ -67,10 +71,6 @@ with open(ARQUIVO, "r", encoding="latin 1") as arq:
 
     registros = list(reader)
 
-    INDEX_ESCOLARIDADE = registros[0].index("DS_GRAU_ESCOLARIDADE")
-    INDEX_COD_ESCOLARIDADE = registros[0].index("CD_GRAU_ESCOLARIDADE")
-    INDEX_MUNICIPIO = registros[0].index("NM_MUNICIPIO")
-    INDEX_SG_UF = registros[0].index("SG_UF")
 
     data = sorted(
         get_escolaridade_data(registros).items(),
