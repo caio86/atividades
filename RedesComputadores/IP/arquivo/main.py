@@ -103,7 +103,7 @@ def print_escolaridade_data(data):
         print()
 
 
-def ler_arquivo(path: str) -> list[list[str]]:
+def ler_csv(path: str) -> list[list[str]]:
     with open(path, "r", encoding="latin 1") as arq:
         reader = csv.reader(arq, delimiter=";", quotechar='"')
         return list(reader)
@@ -112,7 +112,7 @@ def ler_arquivo(path: str) -> list[list[str]]:
 def main():
     entrada = input("Printar separado por estado? [s/N] ").strip().lower()
 
-    registros = ler_arquivo(ARQUIVO)
+    registros = ler_csv(ARQUIVO)
 
     if entrada == "s":
         data = {}
