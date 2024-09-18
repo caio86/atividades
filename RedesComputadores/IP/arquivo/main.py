@@ -122,4 +122,28 @@ with open(ARQUIVO, "r", encoding="latin 1") as arq:
 
     registros = list(reader)
 
+    if input.lower() == "s":
+        data = {}
+
+        # Ordenar pelo codigo da escolariade
+        for key, items in get_escolaridade_data_by_estado(
+            registros,
+            get_estados(registros),
+        ).items():
+            data[key] = sorted(
+                items.items(),
+                key=lambda item: item[1]["codigo"],  # vi em um sonho
+                reverse=True,
+            )
+
+        print_escolaridade_data_com_estados(data)
+    else:
+        data = sorted(
+            get_escolaridade_data(registros).items(),
+            key=lambda item: item[1]["codigo"],  # vi em um sonho
+            reverse=True,
+        )
+
+        print_escolaridade_data(data)
+
     arq.close()
