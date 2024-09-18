@@ -1,5 +1,6 @@
 import csv
 
+ARQUIVO = "./convocacao_mesarios_2024_BRASIL.csv"
 
 def tipos_grau_escolaridade(registros: list[list[str]]) -> list[str]:
     index_of_escolaridade = registros[0].index("DS_GRAU_ESCOLARIDADE")
@@ -56,7 +57,7 @@ def cidades_de_escolaridade(
     return municipios
 
 
-with open("./convocacao_mesarios_2024_BRASIL.csv", "r", encoding="latin 1") as arq:
+with open(ARQUIVO, "r", encoding="latin 1") as arq:
     reader = csv.reader(arq, delimiter=";", quotechar='"')
 
     registros = list(reader)
