@@ -88,23 +88,11 @@ def get_escolaridade_data_by_estado(
     return resultado
 
 
-def print_escolaridade_data(data, groupedByEstado: bool):
-    if groupedByEstado:
-        for estado, estado_data in data.items():
-            print(f"{estado}:")
-            for escolaridade, escolaridade_data in estado_data:
-                print(f"  {escolaridade}:")
-                for col, val in escolaridade_data.items():
-                    if col == "cidades" and len(val) >= 10:
-                        print("\t", f"{col}: {len(val)} cidades")
-                        continue
-
-                    print("\t", f"{col}: {val}")
-                print()
-            print()
-    else:
-        for escolaridade, escolaridade_data in data:
-            print(f"{escolaridade}:")
+def print_escolaridade_data(data):
+    for estado, estado_data in data.items():
+        print(f"{estado}:")
+        for escolaridade, escolaridade_data in estado_data:
+            print(f"  {escolaridade}:")
             for col, val in escolaridade_data.items():
                 if col == "cidades" and len(val) >= 10:
                     print("\t", f"{col}: {len(val)} cidades")
@@ -112,6 +100,7 @@ def print_escolaridade_data(data, groupedByEstado: bool):
 
                 print("\t", f"{col}: {val}")
             print()
+        print()
 
 
 def ler_arquivo(path: str) -> list[list[str]]:
@@ -139,7 +128,7 @@ def main():
                 reverse=True,
             )
 
-        print_escolaridade_data(data, True)
+        print_escolaridade_data(data)
     else:
         data = sorted(
             get_escolaridade_data(registros).items(),
@@ -147,7 +136,7 @@ def main():
             reverse=True,
         )
 
-        print_escolaridade_data(data, False)
+        print_escolaridade_data({"BRASIL": data})
 
 
 if __name__ == "__main__":
