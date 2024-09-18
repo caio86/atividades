@@ -79,11 +79,11 @@ def get_escolaridade_data_by_estado(
 ) -> dict[str, dict[str, dict]]:
     resultado = {}
     for estado in estados:
-        tmp = []
+        registros_estado = []
         for registro in registros[1:]:
             if registro[INDEX_SG_UF] == estado:
-                tmp.append(registro)
-        resultado[estado] = get_escolaridade_data(tmp)
+                registros_estado.append(registro)
+        resultado[estado] = get_escolaridade_data(registros_estado)
 
     return resultado
 
