@@ -114,14 +114,18 @@ def print_escolaridade_data(data, groupedByEstado: bool):
             print()
 
 
-with open(ARQUIVO, "r", encoding="latin 1") as arq:
-    input = input("Printar separado por estado? [s/N] ")
+def ler_arquivo(path: str) -> list[list[str]]:
+    with open(path, "r", encoding="latin 1") as arq:
+        reader = csv.reader(arq, delimiter=";", quotechar='"')
+        return list(reader)
 
-    reader = csv.reader(arq, delimiter=";", quotechar='"')
 
-    registros = list(reader)
+def main():
+    entrada = input("Printar separado por estado? [s/N] ").strip().lower()
 
-    if input.lower() == "s":
+    registros = ler_arquivo(ARQUIVO)
+
+    if entrada == "s":
         data = {}
 
         # Ordenar pelo codigo da escolariade
@@ -145,4 +149,6 @@ with open(ARQUIVO, "r", encoding="latin 1") as arq:
 
         print_escolaridade_data(data, False)
 
-    arq.close()
+
+if __name__ == "__main__":
+    main()
