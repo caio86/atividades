@@ -40,7 +40,7 @@ def distribuicao_grau_escolaridade(
 def cidades_de_escolaridade(
     registros: list[list[str]],
     codigo_escolaridade: int,
-) -> set:
+) -> set[str]:
     index_of_cod_escolaridade = registros[0].index("CD_GRAU_ESCOLARIDADE")
     index_of_municipio = registros[0].index("NM_MUNICIPIO")
 
@@ -53,20 +53,46 @@ def cidades_de_escolaridade(
     return municipios
 
 
+
+
+def get_escolaridade_data(
+    registros: list[list[str]],
+) -> dict[str, dict]:
+    result: dict[str, dict] = {}
+    for escolaridade in tipos_grau_escolaridade(registros):
+        codigo = codigo_tipo_grau_escolaridade(registros, escolaridade)
+        cidades = cidades_de_escolaridade(registros, codigo)
+        qtd = distribuicao_grau_escolaridade(registros, codigo)
+
+        result[escolaridade] = {
+            "cidades": cidades,
+            "codigo": codigo,
+            "qtd": qtd,
+        }
+    return result
+
+
 with open(ARQUIVO, "r", encoding="latin 1") as arq:
     reader = csv.reader(arq, delimiter=";", quotechar='"')
 
     registros = list(reader)
 
-    escolaridades: set[str] = tipos_grau_escolaridade(registros)
-    for escolaridade in escolaridades:
-        codigo = codigo_tipo_grau_escolaridade(registros, escolaridade)
-        cidades = cidades_de_escolaridade(registros, codigo)
-        qtd = distribuicao_grau_escolaridade(registros, codigo)
-        print("Escolaridade:", escolaridade)
-        print("CIDADES:", cidades)
-        print("Codigo:", codigo)
-        print("QTD:", qtd)
+    data = sorted(
+        get_escolaridade_data(registros).items(),
+        key=lambda item: item[1]["codigo"],  # vi em um sonho
+        reverse=True,
+    )
+
+    for escolaridade, escolaridade_data in data:
+        print(f"{escolaridade}:")
+        for col, val in escolaridade_data.items():
+
+            if col == "cidades" and len(val) >= 10:
+                print("\t", f"{col}: {len(val)} cidades")
+                continue
+
+            print("\t", f"{col}: {val}")
+
         print()
 
     arq.close()
