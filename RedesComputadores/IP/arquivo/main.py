@@ -47,6 +47,13 @@ def cidades_de_escolaridade(
     return municipios
 
 
+def get_estados(
+    registros: list[list[str]],
+) -> set[str]:
+    estados = set()
+    for registro in registros[1:]:
+        estados.add(registro[INDEX_SG_UF])
+    return estados
 
 
 def get_escolaridade_data(
@@ -66,28 +73,53 @@ def get_escolaridade_data(
     return result
 
 
-with open(ARQUIVO, "r", encoding="latin 1") as arq:
-    reader = csv.reader(arq, delimiter=";", quotechar='"')
+def get_escolaridade_data_by_estado(
+    registros: list[list[str]],
+    estados: set[str],
+) -> dict[str, dict[str, dict]]:
+    resultado = {}
+    for estado in estados:
+        tmp = []
+        for registro in registros[1:]:
+            if registro[INDEX_SG_UF] == estado:
+                tmp.append(registro)
+        resultado[estado] = get_escolaridade_data(tmp)
 
-    registros = list(reader)
+    return resultado
 
 
-    data = sorted(
-        get_escolaridade_data(registros).items(),
-        key=lambda item: item[1]["codigo"],  # vi em um sonho
-        reverse=True,
-    )
-
+def print_escolaridade_data(data):
     for escolaridade, escolaridade_data in data:
         print(f"{escolaridade}:")
         for col, val in escolaridade_data.items():
-
             if col == "cidades" and len(val) >= 10:
                 print("\t", f"{col}: {len(val)} cidades")
                 continue
 
             print("\t", f"{col}: {val}")
-
         print()
+
+
+def print_escolaridade_data_com_estados(data):
+    for estado, estado_data in data.items():
+        print(f"{estado}:")
+        for escolaridade, escolaridade_data in estado_data:
+            print(f"  {escolaridade}:")
+            for col, val in escolaridade_data.items():
+                if col == "cidades" and len(val) >= 10:
+                    print("\t", f"{col}: {len(val)} cidades")
+                    continue
+
+                print("\t", f"{col}: {val}")
+            print()
+        print()
+
+
+with open(ARQUIVO, "r", encoding="latin 1") as arq:
+    input = input("Printar separado por estado? [s/N] ")
+
+    reader = csv.reader(arq, delimiter=";", quotechar='"')
+
+    registros = list(reader)
 
     arq.close()
