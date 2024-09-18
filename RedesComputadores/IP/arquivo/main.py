@@ -2,16 +2,11 @@ import csv
 
 ARQUIVO = "./convocacao_mesarios_2024_BRASIL.csv"
 
-def tipos_grau_escolaridade(registros: list[list[str]]) -> list[str]:
+
+def tipos_grau_escolaridade(registros: list[list[str]]) -> set[str]:
     index_of_escolaridade = registros[0].index("DS_GRAU_ESCOLARIDADE")
 
-    escolaridades = []
-    for registro in registros[1:]:
-        escolaridade = registro[index_of_escolaridade]
-        if escolaridade not in escolaridades:
-            escolaridades.append(escolaridade)
-
-    return escolaridades
+    return {registro[index_of_escolaridade] for registro in registros[1:]}
 
 
 def codigo_tipo_grau_escolaridade(
@@ -19,9 +14,10 @@ def codigo_tipo_grau_escolaridade(
     grau_escolaridade: str,
 ) -> int:
     index_of_cod_escolaridade = registros[0].index("CD_GRAU_ESCOLARIDADE")
+    index_of_escolaridade = index_of_cod_escolaridade + 1
 
     for registro in registros[1:]:
-        if registro[index_of_cod_escolaridade + 1] == grau_escolaridade:
+        if registro[index_of_escolaridade] == grau_escolaridade:
             return int(registro[index_of_cod_escolaridade])
 
     return -1
@@ -62,7 +58,7 @@ with open(ARQUIVO, "r", encoding="latin 1") as arq:
 
     registros = list(reader)
 
-    escolaridades: list[str] = tipos_grau_escolaridade(registros)
+    escolaridades: set[str] = tipos_grau_escolaridade(registros)
     for escolaridade in escolaridades:
         codigo = codigo_tipo_grau_escolaridade(registros, escolaridade)
         cidades = cidades_de_escolaridade(registros, codigo)
