@@ -1,3 +1,4 @@
 [submodule "FullstackWebDev/Frontend/angular/system-bank"]
 	path = FullstackWebDev/Frontend/angular/system-bank
 	url = git@github.com:caio86/system-bank
+	branch = main
