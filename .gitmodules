@@ -2,3 +2,6 @@
 	path = FullstackWebDev/Frontend/angular/system-bank
 	url = git@github.com:caio86/system-bank
 	branch = main
+[submodule "RedesComputadores/EstruturasDados/calculadora"]
+	path = RedesComputadores/EstruturasDados/calculadora
+	url = git@github.com:caio86/calculadora
