@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { logout } from "../actions";
+import { logout } from "../authReducer";
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
