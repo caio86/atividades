@@ -1,0 +1,1 @@
+from Funcionario import Funcionario
