@@ -1,8 +1,8 @@
-from enum import Enum
-from color import Color
-from clinica import Clinica
-
 import os
+from enum import Enum
+
+from clinica import Clinica
+from color import Color
 
 
 class Opcoes(Enum):
@@ -43,20 +43,41 @@ while opcao != Opcoes.Sair.value[0]:
     if opcao == Opcoes.ObterSenha.value[0]:
         senha = sis.obter_senha()
         print(f"Sua senha é {Color.CYAN}{senha}{Color.END}\n\n")
+
     elif opcao == Opcoes.Cadastrar.value[0]:
         sis.cadastrar_paciente()
         sis.mostrar_painel()
+
     elif opcao == Opcoes.Chamar.value[0]:
         sis.chamada_consultorio()
         sis.mostrar_painel()
+
     elif opcao == Opcoes.ConsultarPosicao.value[0]:
         senha = input(f"{Color.BOLD}Identificação de Senha: {Color.END}").upper()
-        pos = sis.consultar_posicao(senha)
+        if senha.isdecimal():
+            senha = f"N{int(senha):03}"
+
+        pos, first = sis.consultar_posicao(senha)
+
         if pos == -1:
             print(
                 f"{Color.BOLD}{Color.RED}A senha, {Color.DARKCYAN}{senha}{Color.RED}, já foi chamada ou não existe{Color.END}\n\n"
             )
+            continue
+
+        if pos == 1:
+            pos_str = "primeiro"
         else:
-            print(f"{Color.BOLD}{Color.CYAN}{Color.END}")
+            pos_str = f"{pos}ᵒ"
+
+        if first:
+            fila = "Atendimento"
+        else:
+            fila = "Cadastro"
+
+        print(
+            f"{Color.CYAN}Você é o {pos_str} da posição da fila de {Color.BOLD}{fila}{Color.END}"
+        )
+
     elif opcao == Opcoes.Painel.value[0]:
         sis.mostrar_painel()

@@ -41,17 +41,14 @@ class Clinica:
     def chamada_consultorio(self):
         pass
 
-    def consultar_posicao(self, senha: str) -> int:
-        if senha.isdecimal():
-            senha = f"N{int(senha):03}"
-
+    def consultar_posicao(self, senha: str) -> tuple[int, bool]:
         try:
-            return self.__fila_chamada.busca(senha)
+            return (self.__fila_chamada.busca(senha), True)
         except FilaException:
             try:
-                return self.__fila_atendimento.busca(senha)
+                return (self.__fila_atendimento.busca(senha), True)
             except FilaException:
-                return -1
+                return (-1, False)
 
     def mostrar_painel(self):
         print(f"\t\t{Color.BOLD}Painel de Atendimento{Color.END}")
