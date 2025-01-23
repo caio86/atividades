@@ -71,9 +71,9 @@ while opcao != Opcoes.Sair.value[0]:
             pos_str = f"{pos}ᵒ"
 
         if first:
-            fila = "Atendimento"
-        else:
             fila = "Cadastro"
+        else:
+            fila = "Atendimento"
 
         print(
             f"{Color.CYAN}Você é o {pos_str} da posição da fila de {Color.BOLD}{fila}{Color.END}"
