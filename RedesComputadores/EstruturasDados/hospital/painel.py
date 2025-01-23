@@ -27,10 +27,18 @@ class Painel:
         self.__historico.append(item)
 
     def exibir(self):
-        valores = map(lambda i: [i.nome], self.__historico)
+        valores = list(map(lambda i: [i.senha, i.nome], self.__historico))
+        if len(valores) == 0:
+            proximo = ["", ""]
+        else:
+            proximo = valores[len(valores) - 1]
+
         res = Color.BOLD + self.__titulo + Color.END + "\n"
-        res += "=" * (len(self.__titulo) + 4) + "\n" + Color.RED + ">  " + Color.END
-        for v in valores:
-            res += str(v[0]) + "\n   "
+        res += "=" * (len(self.__titulo) + 4) + "\n"
+        res += Color.BOLD + Color.RED + ">  " + Color.END
+        res += f"{Color.BOLD}{proximo[0]}  {proximo[1]}{Color.END}\n   "
+
+        for i in range(len(valores) - 2, -1, -1):
+            res += f"{valores[i][0]}    {valores[i][1]}\n   "
 
         print(res)
