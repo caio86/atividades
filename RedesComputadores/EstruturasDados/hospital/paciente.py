@@ -1,5 +1,5 @@
 class Paciente:
-    def __init__(self, senha, nome="") -> None:
+    def __init__(self, nome, senha) -> None:
         self.__nome: str = nome
         self.__senha = senha
 

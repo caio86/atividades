@@ -1,16 +1,15 @@
 from paciente import Paciente
 
-from pilha import Pilha
 from fila import Fila
 from painel import ItemPainel, Painel
 
 
 class Clinica:
+    __contador = 0
+
     def __init__(self) -> None:
-        self.__contador = 0
         self.__fila_chamada = Fila()
         self.__fila_atendimento = Fila()
-        self.__pilha_atendidos = Pilha()
 
         self.__painel_cadastro = Painel("Cadastro")
         self.__painel_consultorio = Painel("Consultório Médico")
@@ -34,7 +33,7 @@ class Clinica:
         pass
 
     def mostrar_painel(self):
-        print()
+        print(f"\t\t{Color.BOLD}Painel de Atendimento{Color.END}")
         self.__painel_cadastro.exibir()
         print()
         self.__painel_consultorio.exibir()
