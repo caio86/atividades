@@ -36,10 +36,14 @@ class Clinica:
             nome = input("Digite o nome do paciente: ").capitalize()
             self.__fila_atendimento.enfileirar(Paciente(nome, senha))
         except FilaException:
-            print("Não há pacientes na fila de cadastro\n\n")
+            print("Não há pacientes na fila de Cadastro\n\n")
 
     def chamada_consultorio(self):
-        pass
+        try:
+            paciente = self.__fila_atendimento.desenfileirar()
+            self.__painel_consultorio.chamar(ItemPainel(paciente.senha, paciente.nome))
+        except FilaException:
+            print("Não há pacientes na fila de Atendimento\n\n")
 
     def consultar_posicao(self, senha: str) -> tuple[int, bool]:
         try:
