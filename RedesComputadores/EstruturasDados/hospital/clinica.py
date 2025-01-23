@@ -46,7 +46,12 @@ class Clinica:
             return (self.__fila_chamada.busca(senha), True)
         except FilaException:
             try:
-                return (self.__fila_atendimento.busca(senha), True)
+                tam = self.__fila_atendimento.tamanho()
+                for i in range(1, tam + 1):
+                    paciente = self.__fila_atendimento.elemento(i)
+                    if paciente.senha == senha:
+                        return (i, False)
+                return (-1, False)
             except FilaException:
                 return (-1, False)
 
