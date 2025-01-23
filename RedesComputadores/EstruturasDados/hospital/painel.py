@@ -36,9 +36,9 @@ class Painel:
         res = Color.BOLD + self.__titulo + Color.END + "\n"
         res += "=" * (len(self.__titulo) + 4) + "\n"
         res += Color.BOLD + Color.RED + ">  " + Color.END
-        res += f"{Color.BOLD}{proximo[0]}  {proximo[1]}{Color.END}\n   "
+        res += f"{Color.BOLD}{proximo[0]} {proximo[1]}{Color.END}\n   "
 
         for i in range(len(valores) - 2, -1, -1):
-            res += f"{valores[i][0]}    {valores[i][1]}\n   "
+            res += f"{valores[i][0]} {valores[i][1]}\n   "
 
         print(res)
